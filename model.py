@@ -53,6 +53,9 @@ if __name__ == "__main__":
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
     writer = SummaryWriter()
+    # Dummy input для визуализации графа
+    dummy_input = torch.randn(1, 1, 28, 28).to(device)
+    writer.add_graph(model, dummy_input)
 
     # Обучение
     for epoch in range(epochs):
@@ -84,6 +87,7 @@ if __name__ == "__main__":
 
     # Сохраняем модель
     torch.save(model.state_dict(), save_path)
+    torch.save(model, save_path[:-1])
     print("Model saved!")
 
     writer.close()
