@@ -55,8 +55,8 @@ class PaintApp:
         img_b64 = base64.b64encode(img_bytes).decode('utf-8')
 
         try:
-            response = requests.post("http://localhost:8000/predict", json={"image_bytes": img_b64})
-            pred = response.json()["class_id"]
+            response = requests.post("http://localhost:8080/predictions/mnist", json={"image_bytes": img_b64})
+            pred = response.json()
             self.result_label.config(text=f"Predicted: {pred}")
         except Exception as e:
             self.result_label.config(text=f"Error: {e}")
