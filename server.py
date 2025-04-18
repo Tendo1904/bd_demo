@@ -7,8 +7,10 @@ from PIL import Image
 import io
 import base64
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 model = SimpleCNN()
-model.load_state_dict(torch.load("mnist_model.pth", map_location="cpu"))
+model.load_state_dict(torch.load("mnist_model.pth", map_location=device))
 model.eval()
 
 transform = transforms.Compose([
