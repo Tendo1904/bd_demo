@@ -18,7 +18,7 @@ python model.py
 tensorboard --logdir=runs
 ```
 
-## Enable server
+## Enable FastAPI server
 
 ```
 uvicorn serve:app --reload
@@ -30,9 +30,19 @@ uvicorn serve:app --reload
 python drawer.py
 ```
 
+## For torchserve archive model and neccessary files into the export directory with:
+
 ```
 torch-model-archiver --model-name mnist --version 1.0 --serialized-file mnist_model.pth --handler mnist_handler.py --extra-files "model.py" --export-path model_store
 ```
+
+## Create config.properties
+
+```
+touch config.properties
+```
+
+## And then run torchserve with:
 
 ```
 torchserve --start --ts-config ./config.properties --model-store ./model_store --models mnist.mar --disable-token-auth
